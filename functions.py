@@ -41,3 +41,11 @@ def boxplots(df):
         plt.figure()
         sns.boxplot(df[i])
         plt.title(i)
+        
+def histograms_bins(df):
+    """ Selecciona las columnas numéricas de un dataframe (df) y grafica el histograma de cada columna. Además, ajusta el tamaño de los bins, ya que la heurística para seleccionar el tamaño no funciona bien en variables enteras """
+    for i in df.select_dtypes(include=np.number).columns.tolist():
+        plt.figure()
+        sns.distplot(df[i], bins= np.count_nonzero(df[i].unique()), kde=False)
+        plt.title(i)
+        plt.axvline(df[i].mean(), color='tomato', linestyle='--', lw=2)
