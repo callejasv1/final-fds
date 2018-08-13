@@ -3,7 +3,8 @@
 
 import numpy as np
 import pandas as pd
-
+from sklearn import linear_model
+from sklearn.metrics import mean_squared_error, r2_score
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -49,3 +50,11 @@ def histograms_bins(df):
         sns.distplot(df[i], bins= np.count_nonzero(df[i].unique()), kde=False)
         plt.title(i)
         plt.axvline(df[i].mean(), color='tomato', linestyle='--', lw=2)
+        
+        
+def report_scores(test, prediccion):
+    """ Imprime el error cuadrático medio y el r2 de un modelo lineal """
+    m1_mse = mean_squared_error(test, prediccion).round(1)
+    m1_r2 = r2_score(test, prediccion).round(2)
+    print("Mean Squared Error: ", m1_mse)
+    print("R-cuadrado: ", m1_r2)
